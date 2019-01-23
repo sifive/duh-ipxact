@@ -1,0 +1,36 @@
+{
+  "name": "duh-ipxact",
+  "version": "0.1.0",
+  "description": "IP-XACT import / export package",
+  "main": "lib/index.js",
+  "bin": {
+    "duh-ipxact-import": "import.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sifive/duh-ipxact.git"
+  },
+  "author": "SiFive",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sifive/duh-ipxact/issues"
+  },
+  "homepage": "https://github.com/sifive/duh-ipxact#readme",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "json5": "^2.1.0",
+    "onml": "^0.4.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.12.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  }
+}
