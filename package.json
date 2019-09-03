@@ -6,7 +6,8 @@
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "bin": {
-    "duh-import-ipxact": "bin/import.js"
+    "duh-import-ipxact": "bin/import.js",
+    "duh-export-spirit": "bin/duh2spirit.js"
   },
   "directories": {
     "lib": "lib"
@@ -26,7 +27,10 @@
   },
   "homepage": "https://github.com/sifive/duh-ipxact#readme",
   "dependencies": {
-    "fs-extra": "^8.0.1",
+    "ajv": "^6.10.2",
+    "concat-stream": "^2.0.0",
+    "duh-schema": "^0.6.0",
+    "fs-extra": "^8.1.0",
     "json5": "^2.1.0",
     "onml": "^1.0.0"
   },
@@ -34,7 +38,7 @@
     "@drom/eslint-config": "^0.10.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.0",
     "nyc": "^14.1.1"
   },
   "eslintConfig": {
