@@ -31,13 +31,12 @@ const walker = (ipath, opath) =>
         const jdoc = onml.parse(xdoc);
         const odoc = ml2on(jdoc);
         const sdoc = JSON5.stringify(odoc, null, 2);
-        fs.outputFile(path.resolve(opath, dirname, basename + '.json5'), sdoc)
+        fs.outputFile(path.resolve(opath, dirname, basename + '.json5'), sdoc);
       }
-    } else
-    {
+    } else {
       console.log('???:');
     }
-};
+  };
 
 walker(
   path.resolve(process.cwd(), './import'),
