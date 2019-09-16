@@ -5,21 +5,18 @@ IP-XACT import / export package
 
 ## Use
 
+### DUH -> SPIRIT
+
 ```
-npm i duh-ipxact
+npx duh-ipxact duh2spirit myDuh.json5 mySpirit.xml
+
 ```
 
-```bash
-duh-import-ipxact -i <input> -o <output>
+### IPXACT -> DUH
+
 ```
+npx duh-ipxact ipxact2duh myIpxact.xml myDuh.json5
 
-## API
-
-TBD
-
-## Testing
-```
-npm test
 ```
 
 ## License

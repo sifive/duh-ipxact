@@ -6,8 +6,7 @@
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "bin": {
-    "duh-import-ipxact": "bin/import.js",
-    "duh-export-spirit": "bin/duh2spirit.js"
+    "duh-ipxact": "bin/duh-ipxact.js"
   },
   "directories": {
     "lib": "lib"
@@ -32,7 +31,8 @@
     "duh-schema": "^0.6.0",
     "fs-extra": "^8.1.0",
     "json5": "^2.1.0",
-    "onml": "^1.0.0"
+    "onml": "^1.0.0",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@drom/eslint-config": "^0.10.0",
