@@ -28,7 +28,7 @@
   "dependencies": {
     "ajv": "^6.10.2",
     "concat-stream": "^2.0.0",
-    "duh-schema": "^0.6.0",
+    "duh-schema": "^0.7.0",
     "fs-extra": "^8.1.0",
     "json5": "^2.1.0",
     "onml": "^1.0.0",
