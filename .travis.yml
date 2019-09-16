@@ -13,6 +13,7 @@ os:
   - windows
 sudo: false
 install:
+  - npm i
   - npm --version
   - npm install
 script: npm test
