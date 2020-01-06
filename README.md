@@ -1,5 +1,5 @@
 [![NPM version](https://img.shields.io/npm/v/duh-ipxact.svg)](https://www.npmjs.org/package/duh-ipxact)
-[![Travis build Status](https://travis-ci.org/sifive/duh-ipxact.svg?branch=master)](https://travis-ci.org/sifive/duh-ipxact)
+[![Actions Status](https://github.com/sifive/duh-ipxact/workflows/Tests/badge.svg)](https://github.com/sifive/duh-ipxact/actions)
 
 IP-XACT import / export package
 
