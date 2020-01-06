@@ -19,7 +19,7 @@
     "url": "git+https://github.com/sifive/duh-ipxact.git"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "bugs": {
     "url": "https://github.com/sifive/duh-ipxact/issues"
@@ -28,18 +28,18 @@
   "dependencies": {
     "ajv": "^6.10.2",
     "concat-stream": "^2.0.0",
-    "duh-schema": "^0.7.0",
+    "duh-schema": "^0.7.4",
     "fs-extra": "^8.1.0",
-    "json5": "^2.1.0",
+    "json5": "^2.1.1",
     "onml": "^1.0.0",
-    "yargs": "^14.0.0"
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "@drom/eslint-config": "^0.10.0",
     "chai": "^4.2.0",
-    "eslint": "^5.16.0",
-    "mocha": "^6.2.0",
-    "nyc": "^14.1.1"
+    "eslint": "^6.8.0",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0"
   },
   "eslintConfig": {
     "extends": "@drom/eslint-config/eslint4/node8"
