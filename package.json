@@ -12,7 +12,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "eslint lib && mocha test && nyc -r=text -r=lcov mocha test"
+    "test": "eslint lib && nyc -r=text -r=lcov mocha test"
   },
   "repository": {
     "type": "git",

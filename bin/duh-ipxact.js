@@ -12,40 +12,40 @@ const ml2on = require('../lib/ml2on.js');
 // duh -> spirit
 const metaxml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
-const duh2spiritHandler = argv => {
-  if (argv.verbose) console.log('duh2spirit');
-  fs.readFile(argv.duh, 'utf8')
-    .then(duhStr => {
-      const duhObj = json5.parse(duhStr);
-      const spiritObj = duh2spirit(duhObj);
-      let spiritStr;
-      try {
-        spiritStr = metaxml + onml.stringify(spiritObj, 2);
-      } catch (err) {
-        console.error(json5.stringify(spiritObj, null, 2));
-      }
-      if (argv.spirit) {
-        fs.outputFile(argv.spirit, spiritStr);
-      } else {
-        console.log(spiritStr);
-      }
-    });
+const duh2spiritHandler = async argv => {
+  if (argv.verbose) {
+    console.log('duh2spirit');
+  }
+  const duhStr = await fs.readFile(argv.duh, 'utf8');
+  const duhObj = json5.parse(duhStr);
+  const spiritObj = duh2spirit(duhObj);
+  let spiritStr;
+  try {
+    spiritStr = metaxml + onml.stringify(spiritObj, 2);
+  } catch (err) {
+    throw new Error(json5.stringify(spiritObj, null, 2));
+  }
+  if (argv.spirit) {
+    await fs.outputFile(argv.spirit, spiritStr);
+  } else {
+    console.log(spiritStr);
+  }
 };
 
 // ipxact -> duh
-const ipxact2duhHandler = argv => {
-  if (argv.verbose) console.log('ipxact2duh');
-  fs.readFile(argv.ipxact, 'utf8')
-    .then(ipxactStr => {
-      const ipxactObj = onml.parse(ipxactStr);
-      const duhObj = ml2on(ipxactObj);
-      const duhStr = json5.stringify(duhObj, null, 2);
-      if (argv.duh) {
-        fs.outputFile(argv.duh, duhStr);
-      } else {
-        console.log(duhStr);
-      }
-    });
+const ipxact2duhHandler = async argv => {
+  if (argv.verbose) {
+    console.log('ipxact2duh');
+  }
+  const ipxactStr = await fs.readFile(argv.ipxact, 'utf8');
+  const ipxactObj = onml.parse(ipxactStr);
+  const duhObj = ml2on(ipxactObj);
+  const duhStr = json5.stringify(duhObj, null, 2);
+  if (argv.duh) {
+    fs.outputFile(argv.duh, duhStr);
+  } else {
+    console.log(duhStr);
+  }
 };
 
 yargs
