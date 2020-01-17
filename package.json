@@ -18,6 +18,11 @@
     "type": "git",
     "url": "git+https://github.com/sifive/duh-ipxact.git"
   },
+  "files": [
+    "package-lock.json",
+    "bin",
+    "lib"
+  ],
   "engines": {
     "node": ">=8"
   },
@@ -31,7 +36,7 @@
     "duh-schema": "^0.7.4",
     "fs-extra": "^8.1.0",
     "json5": "^2.1.1",
-    "onml": "^1.0.0",
+    "onml": "^1.2.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
