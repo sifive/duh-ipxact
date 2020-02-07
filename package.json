@@ -19,7 +19,6 @@
     "url": "git+https://github.com/sifive/duh-ipxact.git"
   },
   "files": [
-    "package-lock.json",
     "bin",
     "lib"
   ],
