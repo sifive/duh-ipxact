@@ -5,9 +5,11 @@ const yargs = require('yargs');
 const json5 = require('json5');
 const onml = require('onml');
 const fs = require('fs-extra');
+const fetch = require('node-fetch');
 
 const duh2spirit = require('../lib/duh2spirit.js');
 const ml2on = require('../lib/ml2on.js');
+const ipxactSchemas = require('../lib/ipxact-schemas.js');
 
 // duh -> spirit
 const metaxml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -48,6 +50,18 @@ const ipxact2duhHandler = async argv => {
   }
 };
 
+// fetch IPXACT files
+const fetchIpxactSchemasHandler = async argv => {
+  if (argv.verbose) {
+    console.log('fetch IPXACT schemas');
+  }
+  await Promise.all(ipxactSchemas.map(async leaf => {
+    let resp = await fetch('http://' + leaf);
+    let body = await resp.text();
+    await fs.outputFile(leaf, body);
+  }));
+};
+
 yargs
   .option('verbose', {
     alias: 'v',
@@ -84,6 +98,11 @@ yargs
           desc: 'Spirit file name'
         });
     }
+  })
+  .command({
+    command: 'fetch',
+    desc: 'download IPXACT, SPIRIT schemas',
+    handler: fetchIpxactSchemasHandler
   })
   .demandCommand()
   .help().argv;
