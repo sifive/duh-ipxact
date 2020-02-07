@@ -31,10 +31,11 @@
   },
   "homepage": "https://github.com/sifive/duh-ipxact#readme",
   "dependencies": {
-    "ajv": "^6.10.2",
+    "ajv": "^6.11.0",
     "concat-stream": "^2.0.0",
-    "duh-schema": "^0.7.4",
+    "duh-schema": "^0.8.0",
     "fs-extra": "^8.1.0",
+    "node-fetch": "^2.6.0",
     "json5": "^2.1.1",
     "onml": "^1.2.0",
     "yargs": "^15.1.0"
@@ -43,7 +44,7 @@
     "@drom/eslint-config": "^0.10.0",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
-    "mocha": "^7.0.0",
+    "mocha": "^7.0.1",
     "nyc": "^15.0.0"
   },
   "eslintConfig": {
