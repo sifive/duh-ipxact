@@ -26,13 +26,13 @@ npx duh-ipxact fetch
 ### Validate SPIRIT file
 
 ```
-xmllint --schema accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd <myIpxact>.xml
+xmllint --schema accellera.org/XMLSchema/SPIRIT/1685-2009/index.xsd <mySpirit>.xml
 ```
 
 ### Validate IPXACT file
 
 ```
-xmllint --schema accellera.org/XMLSchema/SPIRIT/1685-2009/index.xsd <mySpirit>.xml
+xmllint --schema accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd <myIpxact>.xml
 ```
 
 ## License
