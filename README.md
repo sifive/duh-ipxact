@@ -8,15 +8,31 @@ IP-XACT import / export package
 ### DUH -> SPIRIT
 
 ```
-npx duh-ipxact duh2spirit myDuh.json5 mySpirit.xml
-
+npx duh-ipxact duh2spirit <myDuh>.json5 <mySpirit>.xml
 ```
 
 ### IPXACT -> DUH
 
 ```
-npx duh-ipxact ipxact2duh myIpxact.xml myDuh.json5
+npx duh-ipxact ipxact2duh <myIpxact>.xml <myDuh>.json5
+```
 
+### Fetch IPXACT schemas
+
+```
+npx duh-ipxact fetch
+```
+
+### Validate SPIRIT file
+
+```
+xmllint --schema accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd <myIpxact>.xml
+```
+
+### Validate IPXACT file
+
+```
+xmllint --schema accellera.org/XMLSchema/SPIRIT/1685-2009/index.xsd <mySpirit>.xml
 ```
 
 ## License
