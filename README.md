@@ -5,6 +5,22 @@ IP-XACT import / export package
 
 ## Use
 
+```
+duh-ipxact <command>
+
+Commands:
+  duh-ipxact duh2spirit14 duh [spirit]  convert DUH file to Spirit 1.4 file
+  duh-ipxact duh2spirit duh [spirit]    convert DUH file to Spirit 2009 file
+  duh-ipxact ipxact2duh ipxact [duh]    convert IPXACT file to DUH file
+  duh-ipxact fetch                      download IPXACT, SPIRIT schemas
+
+Options:
+  --version      Show version number                                   [boolean]
+  --verbose, -v                                                 [default: false]
+  --help         Show help                                             [boolean]
+
+```
+
 ### DUH -> SPIRIT
 
 ```
