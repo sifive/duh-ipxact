@@ -14,13 +14,13 @@ const ipxactSchemas = require('../lib/ipxact-schemas.js');
 // duh -> spirit
 const metaxml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
-const duh2spiritHandler = async argv => {
+const duh2spiritHandler = version => async argv => {
   if (argv.verbose) {
     console.log('duh2spirit');
   }
   const duhStr = await fs.readFile(argv.duh, 'utf8');
   const duhObj = json5.parse(duhStr);
-  const spiritObj = duh2spirit(duhObj);
+  const spiritObj = duh2spirit(duhObj, version);
   let spiritStr;
   try {
     spiritStr = metaxml + onml.stringify(spiritObj, 2);
@@ -68,9 +68,25 @@ yargs
     default: false
   })
   .command({
+    command: 'duh2spirit14 duh [spirit]',
+    desc: 'convert DUH file to Spirit 1.4 file',
+    handler: duh2spiritHandler('spirit14'),
+    builder: yargs => {
+      yargs
+        .positional('duh', {
+          type: 'string',
+          desc: 'DUH file name'
+        })
+        .positional('spirit', {
+          type: 'string',
+          desc: 'Spirit file name'
+        });
+    }
+  })
+  .command({
     command: 'duh2spirit duh [spirit]',
-    desc: 'convert DUH file to Spirit file',
-    handler: duh2spiritHandler,
+    desc: 'convert DUH file to Spirit 2009 file',
+    handler: duh2spiritHandler('spirit2009'),
     builder: yargs => {
       yargs
         .positional('duh', {
