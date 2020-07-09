@@ -6,6 +6,7 @@ const json5 = require('json5');
 const onml = require('onml');
 const fs = require('fs-extra');
 const fetch = require('node-fetch');
+const duhCore = require('duh-core');
 
 const duh2spirit = require('../lib/duh2spirit.js');
 const ml2on = require('../lib/ml2on.js');
@@ -18,8 +19,7 @@ const duh2spiritHandler = version => async argv => {
   if (argv.verbose) {
     console.log('duh2spirit');
   }
-  const duhStr = await fs.readFile(argv.duh, 'utf8');
-  const duhObj = json5.parse(duhStr);
+  const duhObj = await duhCore.readDuh({filename: argv.duh});
   const spiritObj = duh2spirit(duhObj, version);
   let spiritStr;
   try {
