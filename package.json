@@ -32,7 +32,7 @@
   "dependencies": {
     "ajv": "^6.11.0",
     "concat-stream": "^2.0.0",
-    "duh-core": "^0.10.1",
+    "duh-core": "^0.10.2",
     "duh-schema": "^0.9.8",
     "fs-extra": "^8.1.0",
     "json5": "^2.1.1",
