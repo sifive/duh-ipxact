@@ -42,7 +42,7 @@ const ipxact2duhHandler = async argv => {
   const ipxactStr = await fs.readFile(argv.ipxact, 'utf8');
   const ipxactObj = onml.parse(ipxactStr);
   const duhObj = ml2on(ipxactObj);
-  const duhStr = json5.stringify(duhObj, null, 2);
+  const duhStr = json5.stringify(duhObj, null, 2) + '\n';
   if (argv.duh) {
     fs.outputFile(argv.duh, duhStr);
   } else {
