@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/sifive/duh-ipxact#readme",
   "dependencies": {
-    "ajv": "^6.11.0",
+    "ajv": "^6.12.4",
     "concat-stream": "^2.0.0",
     "duh-core": "^0.11.1",
     "duh-schema": "^0.10.0",
