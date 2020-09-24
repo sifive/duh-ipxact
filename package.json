@@ -1,6 +1,6 @@
 {
   "name": "duh-ipxact",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "IP-XACT import / export package",
   "author": "SiFive",
   "license": "Apache-2.0",
