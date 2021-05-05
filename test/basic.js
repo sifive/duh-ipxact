@@ -2,27 +2,22 @@
 
 const chai = require('chai');
 
-const ml2on = require('../lib/ml2on.js');
-const duh2spirit = require('../lib/duh2spirit.js');
-const ipxactSchemas = require('../lib/ipxact-schemas.js');
+const lib = require('../lib/index.js');
 
 const expect = chai.expect;
 
 describe('basic', () => {
 
-  it('one', done => {
-    expect(ml2on).to.be.a('function');
-    done();
+  it('one', () => {
+    expect(lib.ml2on).to.be.a('function');
   });
 
-  it('duh2spirit is function', done => {
-    expect(duh2spirit).to.be.a('function');
-    done();
+  it('duh2spirit is function', () => {
+    expect(lib.duh2spirit).to.be.a('function');
   });
 
-  it('ipxactSchemas is array', done => {
-    expect(ipxactSchemas).to.be.a('array');
-    done();
+  it('ipxactSchemas is array', () => {
+    expect(lib.ipxactSchemas).to.be.a('array');
   });
 
 });
