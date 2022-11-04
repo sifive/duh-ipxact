@@ -32,19 +32,19 @@
   "dependencies": {
     "ajv": "^8.11.0",
     "concat-stream": "^2.0.0",
-    "duh-core": "^0.15.0",
-    "duh-schema": "^0.10.1",
+    "duh-core": "^0.16.0",
+    "duh-schema": "^0.11.0",
     "fs-extra": "^10.1.0",
     "json5": "^2.2.1",
-    "node-fetch": "^3.2.8",
+    "node-fetch": "^3.2.10",
     "onml": "^2.1.0",
-    "yargs": "^17.5.1"
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
     "@drom/eslint-config": "^0.10.0",
     "chai": "^4.3.6",
-    "eslint": "^8.19.0",
-    "mocha": "^10.0.0",
+    "eslint": "^8.26.0",
+    "mocha": "^10.1.0",
     "nyc": "^15.0.0"
   },
   "eslintConfig": {
