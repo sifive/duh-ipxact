@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
+const http = require('http');
+
+const fs = require('fs-extra');
 const yargs = require('yargs');
 const json5 = require('json5');
 const onml = require('onml');
-const fs = require('fs-extra');
-const fetch = require('node-fetch');
 const duhCore = require('duh-core');
 
 const duh2spirit = require('../lib/duh2spirit.js');
@@ -49,6 +50,20 @@ const ipxact2duhHandler = async argv => {
     console.log(duhStr);
   }
 };
+
+const fetch = (url) => new Promise((resolve, reject) => {
+  return http.get(url, res => {
+    let fullData = '';
+    res.on('data', data => {
+      fullData += data;
+    });
+    res.on('end', () => resolve({
+      text: async () => fullData
+    }));
+  }).on('error', (e) => {
+    reject(e);
+  });
+});
 
 // fetch IPXACT files
 const fetchIpxactSchemasHandler = async argv => {
