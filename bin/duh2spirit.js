@@ -16,7 +16,7 @@ function gotInput (duhStr) {
   let spiritStr;
   try {
     spiritStr = metaxml + onml.stringify(spiritObj, 2);
-  } catch (err) {
+  } catch {
     console.log(json5.stringify(spiritObj, null, 2));
   }
   console.log(spiritStr);

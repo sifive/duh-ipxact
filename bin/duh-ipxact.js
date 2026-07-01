@@ -4,7 +4,7 @@
 const http = require('http');
 
 const fs = require('fs-extra');
-const yargs = require('yargs');
+const {program} = require('commander');
 const json5 = require('json5');
 const onml = require('onml');
 const duhCore = require('duh-core');
@@ -25,7 +25,7 @@ const duh2spiritHandler = version => async argv => {
   let spiritStr;
   try {
     spiritStr = metaxml + onml.stringify(spiritObj, 2);
-  } catch (err) {
+  } catch {
     throw new Error(json5.stringify(spiritObj, null, 2));
   }
   if (argv.spirit) {
@@ -77,63 +77,33 @@ const fetchIpxactSchemasHandler = async argv => {
   }));
 };
 
-yargs
-  .option('verbose', {
-    alias: 'v',
-    default: false
-  })
-  .command({
-    command: 'duh2spirit14 duh [spirit]',
-    desc: 'convert DUH file to Spirit 1.4 file',
-    handler: duh2spiritHandler('spirit14'),
-    builder: yargs => {
-      yargs
-        .positional('duh', {
-          type: 'string',
-          desc: 'DUH file name'
-        })
-        .positional('spirit', {
-          type: 'string',
-          desc: 'Spirit file name'
-        });
-    }
-  })
-  .command({
-    command: 'duh2spirit duh [spirit]',
-    desc: 'convert DUH file to Spirit 2009 file',
-    handler: duh2spiritHandler('spirit2009'),
-    builder: yargs => {
-      yargs
-        .positional('duh', {
-          type: 'string',
-          desc: 'DUH file name'
-        })
-        .positional('spirit', {
-          type: 'string',
-          desc: 'Spirit file name'
-        });
-    }
-  })
-  .command({
-    command: 'ipxact2duh ipxact [duh]',
-    desc: 'convert IPXACT file to DUH file',
-    handler: ipxact2duhHandler,
-    builder: yargs => {
-      yargs
-        .positional('duh', {
-          type: 'string',
-          desc: 'DUH file name'
-        })
-        .positional('spirit', {
-          type: 'string',
-          desc: 'Spirit file name'
-        });
-    }
-  })
-  .command({
-    command: 'fetch',
-    desc: 'download IPXACT, SPIRIT schemas',
-    handler: fetchIpxactSchemasHandler
-  })
-  .demandCommand()
-  .help().argv;
+const verbose = () => program.opts().verbose;
+
+program
+  .name('duh-ipxact')
+  .option('-v, --verbose', 'verbose output', false);
+
+program
+  .command('duh2spirit14 <duh> [spirit]')
+  .description('convert DUH file to Spirit 1.4 file')
+  .action((duh, spirit) =>
+    duh2spiritHandler('spirit14')({duh, spirit, verbose: verbose()}));
+
+program
+  .command('duh2spirit <duh> [spirit]')
+  .description('convert DUH file to Spirit 2009 file')
+  .action((duh, spirit) =>
+    duh2spiritHandler('spirit2009')({duh, spirit, verbose: verbose()}));
+
+program
+  .command('ipxact2duh <ipxact> [duh]')
+  .description('convert IPXACT file to DUH file')
+  .action((ipxact, duh) =>
+    ipxact2duhHandler({ipxact, duh, verbose: verbose()}));
+
+program
+  .command('fetch')
+  .description('download IPXACT, SPIRIT schemas')
+  .action(() => fetchIpxactSchemasHandler({verbose: verbose()}));
+
+program.parseAsync();

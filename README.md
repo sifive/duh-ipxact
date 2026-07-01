@@ -1,9 +1,39 @@
 [![NPM version](https://img.shields.io/npm/v/duh-ipxact.svg)](https://www.npmjs.org/package/duh-ipxact)
 [![Actions Status](https://github.com/sifive/duh-ipxact/workflows/Tests/badge.svg)](https://github.com/sifive/duh-ipxact/actions)
 
-IP-XACT import / export package
+# duh-ipxact
 
-## Use
+Import / export bridge between **DUH** and **IP-XACT / SPIRIT**.
+
+- **DUH** is a compact [JSON5](https://json5.org/) description of an IP component — ports, bus interfaces, register maps, and model info. It is the native format used by the [`duh-core`](https://github.com/sifive/duh-core) tooling.
+- **IP-XACT** (IEEE 1685) and its predecessor **SPIRIT** are verbose XML standards for describing the same IP metadata, consumed by many EDA tools.
+
+`duh-ipxact` converts in both directions:
+
+```
+DUH (.json5)  ⇄  IP-XACT / SPIRIT (.xml)
+```
+
+| Direction | Command | Source | Target |
+|-----------|---------|--------|--------|
+| Export    | `duh2spirit`, `duh2spirit14` | DUH JSON5 | SPIRIT XML |
+| Import    | `ipxact2duh` | IP-XACT XML | DUH JSON5 |
+
+## Install
+
+Run without installing:
+
+```
+npx duh-ipxact <command>
+```
+
+Or install globally / as a dependency:
+
+```
+npm install -g duh-ipxact
+```
+
+## Usage
 
 ```
 duh-ipxact <command>
@@ -18,38 +48,88 @@ Options:
   --version      Show version number                                   [boolean]
   --verbose, -v                                                 [default: false]
   --help         Show help                                             [boolean]
-
 ```
 
-### DUH -> SPIRIT
+If the output file argument is omitted, the result is printed to `stdout`.
+
+### DUH → SPIRIT
+
+SPIRIT 2009 (IEEE 1685-2009):
 
 ```
 npx duh-ipxact duh2spirit <myDuh>.json5 <mySpirit>.xml
 ```
 
-### IPXACT -> DUH
+SPIRIT 1.4:
+
+```
+npx duh-ipxact duh2spirit14 <myDuh>.json5 <mySpirit>.xml
+```
+
+### IP-XACT → DUH
 
 ```
 npx duh-ipxact ipxact2duh <myIpxact>.xml <myDuh>.json5
 ```
 
-### Fetch IPXACT schemas
+### Fetch schemas
+
+Download the IP-XACT and SPIRIT XSD schemas (into `accellera.org/...`) for local validation:
 
 ```
 npx duh-ipxact fetch
 ```
 
-### Validate SPIRIT file
+### Validate output
+
+Validate a generated SPIRIT file:
 
 ```
 xmllint --schema accellera.org/XMLSchema/SPIRIT/1685-2009/index.xsd <mySpirit>.xml
 ```
 
-### Validate IPXACT file
+Validate an IP-XACT file:
 
 ```
 xmllint --schema accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd <myIpxact>.xml
 ```
 
+## Pipe helpers
+
+Two extra binaries read from `stdin` and write to `stdout`, for use in shell pipelines:
+
+```
+cat <myDuh>.json5   | node bin/duh2spirit.js  > <mySpirit>.xml
+cat <myIpxact>.xml  | node bin/ipxact2duh.js   > <myDuh>.json5
+```
+
+## Batch import
+
+`bin/import.js` walks a directory tree, converting every `*.xml` IP-XACT file it
+finds into a matching `*.json5` DUH file, mirroring the directory layout:
+
+```
+import/**/*.xml   →   specs/**/*.json5
+```
+
+Run it from a directory that contains an `import/` folder:
+
+```
+node bin/import.js
+```
+
+Outputs land under `specs/`, preserving sub-paths.
+
+## How conversion works
+
+- **Export** (`duh2spirit.js`) walks the DUH object and emits a SPIRIT XML tree
+  via [`onml`](https://www.npmjs.com/package/onml), wrapping tags in the
+  `spirit:` namespace and attaching the schema URIs for the requested version.
+- **Import** (`ml2on.js`) parses IP-XACT XML with `onml` and folds the verbose
+  node tree into compact DUH. Ports collapse to signed widths
+  (`in` → `+width`, `out` → `-width`); Verilog-style literals (`'h`, `'b`, `'d`)
+  are parsed to numbers.
+
 ## License
-Apache 2.0 [LICENSE](LICENSE).
+
+Apache 2.0 — see [LICENSE](LICENSE).
