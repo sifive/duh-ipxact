@@ -12,8 +12,8 @@
 //
 // usage: node bin/zoo-check.js [privateDir] [zooDir]
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 const onml = require('onml');
 
 const {versions} = require('../lib/versions.js');
@@ -22,18 +22,26 @@ const root = path.resolve(__dirname, '..');
 const privDir = path.resolve(root, process.argv[2] || 'tmp');
 const zooDir = path.resolve(root, process.argv[3] || 'test/zoo');
 
-if (!fs.existsSync(privDir)) {
-  console.log('zoo-check: no private dir, skipped');
-  process.exit(0);
-}
+const fileExists = async p => {
+  try {
+    await fs.access(p);
+    return true;
+  } catch {
+    return false;
+  }
+};
 
-const listXml = dir => {
+const listXml = async dir => {
   const res = [];
-  const rec = d => fs.readdirSync(d, {withFileTypes: true}).map(e => {
-    const p = path.join(d, e.name);
-    if (e.isDirectory()) { rec(p); } else if (e.name.endsWith('.xml')) { res.push(p); }
-  });
-  if (fs.existsSync(dir)) { rec(dir); }
+  if (!(await fileExists(dir))) {
+    return res;
+  }
+  const entries = await fs.readdir(dir, {recursive: true, withFileTypes: true});
+  for (const e of entries) {
+    if (e.isFile() && e.name.endsWith('.xml')) {
+      res.push(path.join(e.parentPath || dir, e.name));
+    }
+  }
   return res;
 };
 
@@ -51,7 +59,7 @@ versions.map(v => {
 
 const skipAttr = k => k.startsWith('xmlns') || k.endsWith('schemaLocation');
 
-const values = file => {
+const values = async file => {
   const res = [];
   const rec = node => {
     if (typeof node === 'string') { res.push(node.trim()); return; }
@@ -60,34 +68,49 @@ const values = file => {
     Object.keys(attr).filter(k => !skipAttr(k)).map(k => res.push(String(attr[k]).trim()));
     node.slice(2).map(rec);
   };
-  rec(onml.parse(fs.readFileSync(file, 'utf8')));
+  rec(onml.parse(await fs.readFile(file, 'utf8')));
   return res.filter(e => e.length > 0);
 };
 
 const isIdent = tok => tok.length >= 4 && (/[_0-9]/.test(tok) || /[a-z][A-Z]/.test(tok));
 
-const collect = files => {
+const collect = async files => {
   const leaves = new Set();
   const idents = new Set();
-  files.map(f => values(f).map(v => {
-    if (v.length >= 4 && !vocab.has(v) && !/^[-+0-9xXa-fA-F'hbd.]+$/.test(v)) { leaves.add(v); }
-    (v.match(/[A-Za-z_][A-Za-z0-9_]*/g) || [])
-      .filter(t => isIdent(t) && !vocab.has(t))
-      .map(t => idents.add(t));
-  }));
+  for (const f of files) {
+    const vals = await values(f);
+    for (const v of vals) {
+      if (v.length >= 4 && !vocab.has(v) && !/^[-+0-9xXa-fA-F'hbd.]+$/.test(v)) { leaves.add(v); }
+      (v.match(/[A-Za-z_][A-Za-z0-9_]*/g) || [])
+        .filter(t => isIdent(t) && !vocab.has(t))
+        .map(t => idents.add(t));
+    }
+  }
   return {leaves, idents};
 };
 
-const priv = collect(listXml(privDir));
-const zoo = collect(listXml(zooDir));
+const main = async () => {
+  if (!(await fileExists(privDir))) {
+    console.log('zoo-check: no private dir, skipped');
+    process.exit(0);
+  }
 
-const hits = [];
-zoo.leaves.forEach(v => { if (priv.leaves.has(v)) { hits.push('value: ' + v); } });
-zoo.idents.forEach(v => { if (priv.idents.has(v)) { hits.push('token: ' + v); } });
+  const priv = await collect(await listXml(privDir));
+  const zoo = await collect(await listXml(zooDir));
 
-if (hits.length) {
-  console.log('zoo-check: ' + hits.length + ' leak(s) from private inputs:');
-  hits.map(h => console.log('  ' + h));
+  const hits = [];
+  zoo.leaves.forEach(v => { if (priv.leaves.has(v)) { hits.push('value: ' + v); } });
+  zoo.idents.forEach(v => { if (priv.idents.has(v)) { hits.push('token: ' + v); } });
+
+  if (hits.length) {
+    console.log('zoo-check: ' + hits.length + ' leak(s) from private inputs:');
+    hits.map(h => console.log('  ' + h));
+    process.exit(1);
+  }
+  console.log('zoo-check: ok');
+};
+
+main().catch(err => {
+  console.error(err);
   process.exit(1);
-}
-console.log('zoo-check: ok');
+});

@@ -2,14 +2,19 @@
 
 'use strict';
 
-const fs = require('fs-extra');
-const path = require('path');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 const onml = require('onml');
 const JSON5 = require('json5');
 
 const ml2on = require('../lib/ml2on.js');
 
 const xmlExp = new RegExp('\\w+.xml', 'i');
+
+const outputFile = async (file, data) => {
+  await fs.mkdir(path.dirname(file), {recursive: true});
+  await fs.writeFile(file, data);
+};
 
 const walker = (ipath, opath) =>
   async function traverse (fpath) {
@@ -19,10 +24,9 @@ const walker = (ipath, opath) =>
       console.log('DIR:', fpath);
       const files = await fs.readdir(fullPath);
       for (let i = 0; i < files.length; i++) {
-        traverse(fpath + '/' + files[i]);
+        await traverse(fpath + '/' + files[i]);
       }
-    } else
-    if (stats.isFile()) {
+    } else if (stats.isFile()) {
       console.log('FILE:', fpath);
       if (fpath.match(xmlExp)) {
         const basename = path.basename(fpath, '.xml');
@@ -31,7 +35,7 @@ const walker = (ipath, opath) =>
         const jdoc = onml.parse(xdoc);
         const odoc = ml2on(jdoc);
         const sdoc = JSON5.stringify(odoc, null, 2);
-        fs.outputFile(path.resolve(opath, dirname, basename + '.json5'), sdoc);
+        await outputFile(path.resolve(opath, dirname, basename + '.json5'), sdoc);
       }
     } else {
       console.log('???:');
@@ -41,6 +45,6 @@ const walker = (ipath, opath) =>
 walker(
   path.resolve(process.cwd(), './import'),
   path.resolve(process.cwd(), './specs')
-)('.');
+)('.').catch(console.error);
 
 /* eslint no-console: 0 */

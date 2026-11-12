@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-const fs = require('fs-extra');
-const {program} = require('commander');
+const fs = require('node:fs/promises');
+const path = require('node:path');
+const {parseArgs} = require('node:util');
 const json5 = require('json5');
 const onml = require('onml');
 const duhCore = require('duh-core');
@@ -10,6 +11,12 @@ const duhCore = require('duh-core');
 const duh2spirit = require('../lib/duh2spirit.js');
 const ml2on = require('../lib/ml2on.js');
 const ipxactSchemas = require('../lib/ipxact-schemas.js');
+const pkg = require('../package.json');
+
+const outputFile = async (file, data) => {
+  await fs.mkdir(path.dirname(file), {recursive: true});
+  await fs.writeFile(file, data);
+};
 
 // duh -> spirit
 const metaxml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -27,7 +34,7 @@ const duh2spiritHandler = version => async argv => {
     throw new Error(json5.stringify(spiritObj, null, 2));
   }
   if (argv.spirit) {
-    await fs.outputFile(argv.spirit, spiritStr);
+    await outputFile(argv.spirit, spiritStr);
   } else {
     console.log(spiritStr);
   }
@@ -43,7 +50,7 @@ const ipxact2duhHandler = async argv => {
   const duhObj = ml2on(ipxactObj);
   const duhStr = json5.stringify(duhObj, null, 2) + '\n';
   if (argv.duh) {
-    fs.outputFile(argv.duh, duhStr);
+    await outputFile(argv.duh, duhStr);
   } else {
     console.log(duhStr);
   }
@@ -64,37 +71,90 @@ const fetchIpxactSchemasHandler = async argv => {
   }
   await Promise.all(ipxactSchemas.map(async leaf => {
     const body = await fetchText('http://' + leaf);
-    await fs.outputFile(leaf, body);
+    await outputFile(leaf, body);
   }));
 };
 
-const verbose = () => program.opts().verbose;
+const usage = `Usage: duh-ipxact [options] [command]
 
-program
-  .name('duh-ipxact')
-  .option('-v, --verbose', 'verbose output', false);
+Options:
+  -v, --verbose                verbose output (default: false)
+  -h, --help                   display help for command
+      --version                output the version number
 
-program
-  .command('duh2spirit14 <duh> [spirit]')
-  .description('convert DUH file to Spirit 1.4 file')
-  .action((duh, spirit) =>
-    duh2spiritHandler('spirit14')({duh, spirit, verbose: verbose()}));
+Commands:
+  duh2spirit14 <duh> [spirit]  convert DUH file to Spirit 1.4 file
+  duh2spirit <duh> [spirit]    convert DUH file to Spirit 2009 file
+  ipxact2duh <ipxact> [duh]    convert IPXACT file to DUH file
+  fetch                        download IPXACT, SPIRIT schemas`;
 
-program
-  .command('duh2spirit <duh> [spirit]')
-  .description('convert DUH file to Spirit 2009 file')
-  .action((duh, spirit) =>
-    duh2spiritHandler('spirit2009')({duh, spirit, verbose: verbose()}));
+const main = async () => {
+  let args;
+  try {
+    args = parseArgs({
+      options: {
+        verbose: {type: 'boolean', short: 'v', default: false},
+        help: {type: 'boolean', short: 'h', default: false},
+        version: {type: 'boolean', default: false}
+      },
+      allowPositionals: true
+    });
+  } catch (err) {
+    console.error(err.message);
+    console.log(usage);
+    process.exit(1);
+  }
 
-program
-  .command('ipxact2duh <ipxact> [duh]')
-  .description('convert IPXACT file to DUH file')
-  .action((ipxact, duh) =>
-    ipxact2duhHandler({ipxact, duh, verbose: verbose()}));
+  const {values, positionals} = args;
 
-program
-  .command('fetch')
-  .description('download IPXACT, SPIRIT schemas')
-  .action(() => fetchIpxactSchemasHandler({verbose: verbose()}));
+  if (values.version) {
+    console.log(pkg.version);
+    return;
+  }
 
-program.parseAsync();
+  if (values.help || positionals.length === 0) {
+    console.log(usage);
+    if (!values.help && positionals.length === 0) {
+      process.exit(1);
+    }
+    return;
+  }
+
+  const [command, arg1, arg2] = positionals;
+
+  switch (command) {
+  case 'duh2spirit14':
+    if (!arg1) {
+      console.error('error: missing required argument \'duh\'');
+      process.exit(1);
+    }
+    await duh2spiritHandler('spirit14')({duh: arg1, spirit: arg2, verbose: values.verbose});
+    break;
+  case 'duh2spirit':
+    if (!arg1) {
+      console.error('error: missing required argument \'duh\'');
+      process.exit(1);
+    }
+    await duh2spiritHandler('spirit2009')({duh: arg1, spirit: arg2, verbose: values.verbose});
+    break;
+  case 'ipxact2duh':
+    if (!arg1) {
+      console.error('error: missing required argument \'ipxact\'');
+      process.exit(1);
+    }
+    await ipxact2duhHandler({ipxact: arg1, duh: arg2, verbose: values.verbose});
+    break;
+  case 'fetch':
+    await fetchIpxactSchemasHandler({verbose: values.verbose});
+    break;
+  default:
+    console.error(`error: unknown command '${command}'`);
+    console.log(usage);
+    process.exit(1);
+  }
+};
+
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
