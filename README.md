@@ -133,3 +133,16 @@ Outputs land under `specs/`, preserving sub-paths.
 ## License
 
 Apache 2.0 — see [LICENSE](LICENSE).
+
+## Development
+
+```
+npm run fetch        # download SPIRIT 1.4 / 2009, IP-XACT 2014 / 2022 XSDs into accellera.org/
+npm run xsd          # regenerate lib/xsd/<version>.json content-model tables
+npm test             # lint + tests (incl. synthetic zoo in test/zoo/)
+npm run zoo:update   # accept new zoo import / round-trip / coverage state
+npm run zoo:survey   # local: survey real-world XML in tmp/ pub/ → tmp/survey.json
+npm run zoo:check    # local: leak guard, test/zoo/ must not contain data from tmp/
+```
+
+See [plans/feature-coverage.md](plans/feature-coverage.md).

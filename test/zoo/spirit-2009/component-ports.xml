@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>example.com</spirit:vendor>
+  <spirit:library>lib</spirit:library>
+  <spirit:name>comp0</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:model>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>t0_addr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>9</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>q</spirit:name>
+        <spirit:description>Synthetic output.</spirit:description>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>15</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>io</spirit:name>
+        <spirit:wire>
+          <spirit:direction>inout</spirit:direction>
+          <spirit:vector>
+            <spirit:left>3</spirit:left>
+            <spirit:right>1</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+</spirit:component>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2014 http://www.accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd">
+  <ipxact:vendor>example.com</ipxact:vendor>
+  <ipxact:library>lib</ipxact:library>
+  <ipxact:name>comp0</ipxact:name>
+  <ipxact:version>1.0</ipxact:version>
+  <ipxact:memoryMaps>
+    <ipxact:memoryMap>
+      <ipxact:name>mm0</ipxact:name>
+      <ipxact:addressBlock>
+        <ipxact:name>ab0</ipxact:name>
+        <ipxact:baseAddress>'h1000</ipxact:baseAddress>
+        <ipxact:range>'h100</ipxact:range>
+        <ipxact:width>32</ipxact:width>
+        <ipxact:usage>register</ipxact:usage>
+        <ipxact:register>
+          <ipxact:name>reg0</ipxact:name>
+          <ipxact:displayName>Register 0</ipxact:displayName>
+          <ipxact:description>Synthetic control register.</ipxact:description>
+          <ipxact:addressOffset>'h0</ipxact:addressOffset>
+          <ipxact:size>32</ipxact:size>
+          <ipxact:volatile>true</ipxact:volatile>
+          <ipxact:access>read-write</ipxact:access>
+          <ipxact:field>
+            <ipxact:name>f0</ipxact:name>
+            <ipxact:bitOffset>0</ipxact:bitOffset>
+            <ipxact:resets>
+              <ipxact:reset>
+                <ipxact:value>1'b1</ipxact:value>
+              </ipxact:reset>
+            </ipxact:resets>
+            <ipxact:bitWidth>1</ipxact:bitWidth>
+            <ipxact:access>read-write</ipxact:access>
+          </ipxact:field>
+          <ipxact:field>
+            <ipxact:name>f1</ipxact:name>
+            <ipxact:description>Synthetic mode field.</ipxact:description>
+            <ipxact:bitOffset>4</ipxact:bitOffset>
+            <ipxact:resets>
+              <ipxact:reset>
+                <ipxact:value>'h0</ipxact:value>
+                <ipxact:mask>'h3</ipxact:mask>
+              </ipxact:reset>
+            </ipxact:resets>
+            <ipxact:bitWidth>2</ipxact:bitWidth>
+            <ipxact:access>read-write</ipxact:access>
+            <ipxact:enumeratedValues>
+              <ipxact:enumeratedValue>
+                <ipxact:name>m0</ipxact:name>
+                <ipxact:value>0</ipxact:value>
+              </ipxact:enumeratedValue>
+              <ipxact:enumeratedValue usage="read">
+                <ipxact:name>m1</ipxact:name>
+                <ipxact:description>Synthetic value.</ipxact:description>
+                <ipxact:value>1</ipxact:value>
+              </ipxact:enumeratedValue>
+            </ipxact:enumeratedValues>
+            <ipxact:modifiedWriteValue>oneToClear</ipxact:modifiedWriteValue>
+            <ipxact:readAction>clear</ipxact:readAction>
+          </ipxact:field>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>reg1</ipxact:name>
+          <ipxact:dim>4</ipxact:dim>
+          <ipxact:addressOffset>'h10</ipxact:addressOffset>
+          <ipxact:size>32</ipxact:size>
+          <ipxact:access>read-only</ipxact:access>
+          <ipxact:field>
+            <ipxact:name>f0</ipxact:name>
+            <ipxact:bitOffset>0</ipxact:bitOffset>
+            <ipxact:bitWidth>32</ipxact:bitWidth>
+          </ipxact:field>
+        </ipxact:register>
+      </ipxact:addressBlock>
+      <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+    </ipxact:memoryMap>
+  </ipxact:memoryMaps>
+</ipxact:component>

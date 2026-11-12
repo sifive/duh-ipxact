@@ -1,0 +1,74 @@
+{
+  "files": {
+    "spirit-1.4/component-minimal.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "spirit-2009/component-bus-interface.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "spirit-2009/component-memory-map.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "spirit-2009/component-minimal.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "spirit-2009/component-ports.xml": {
+      "import": "fail",
+      "roundtrip": "fail"
+    },
+    "spirit-2009/component-vendor-extensions.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2014/component-bus-interface.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2014/component-memory-map.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2014/component-minimal.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2014/component-ports.xml": {
+      "import": "fail",
+      "roundtrip": "fail"
+    },
+    "ipxact-2014/component-vendor-extensions.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2022/component-bus-interface.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    },
+    "ipxact-2022/component-minimal.xml": {
+      "import": "ok",
+      "roundtrip": "fail"
+    }
+  },
+  "coverage": {
+    "spirit-1.4": {
+      "used": 5,
+      "total": 243
+    },
+    "spirit-2009": {
+      "used": 49,
+      "total": 262
+    },
+    "ipxact-2014": {
+      "used": 62,
+      "total": 329
+    },
+    "ipxact-2022": {
+      "used": 35,
+      "total": 436
+    }
+  }
+}

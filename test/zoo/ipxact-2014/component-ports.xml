@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2014 http://www.accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd">
+  <ipxact:vendor>example.com</ipxact:vendor>
+  <ipxact:library>lib</ipxact:library>
+  <ipxact:name>comp0</ipxact:name>
+  <ipxact:version>1.0</ipxact:version>
+  <ipxact:model>
+    <ipxact:ports>
+      <ipxact:port>
+        <ipxact:name>clk</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>t0_addr</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>9</ipxact:left>
+              <ipxact:right>0</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>q</ipxact:name>
+        <ipxact:description>Synthetic output.</ipxact:description>
+        <ipxact:wire>
+          <ipxact:direction>out</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>W-1</ipxact:left>
+              <ipxact:right>0</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>io</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>inout</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>3</ipxact:left>
+              <ipxact:right>1</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+        </ipxact:wire>
+      </ipxact:port>
+    </ipxact:ports>
+  </ipxact:model>
+  <ipxact:parameters>
+    <ipxact:parameter parameterId="W" resolve="user" type="longint" minimum="1" maximum="64">
+      <ipxact:name>W</ipxact:name>
+      <ipxact:value>16</ipxact:value>
+    </ipxact:parameter>
+  </ipxact:parameters>
+</ipxact:component>

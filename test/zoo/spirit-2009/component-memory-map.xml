@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>example.com</spirit:vendor>
+  <spirit:library>lib</spirit:library>
+  <spirit:name>comp0</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>mm0</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>ab0</spirit:name>
+        <spirit:baseAddress>0x1000</spirit:baseAddress>
+        <spirit:range>0x100</spirit:range>
+        <spirit:width>32</spirit:width>
+        <spirit:usage>register</spirit:usage>
+        <spirit:register>
+          <spirit:name>reg0</spirit:name>
+          <spirit:description>Synthetic control register.</spirit:description>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:volatile>true</spirit:volatile>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00000001</spirit:value>
+            <spirit:mask>0xffffffff</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>f0</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>f1</spirit:name>
+            <spirit:description>Synthetic mode field.</spirit:description>
+            <spirit:bitOffset>4</spirit:bitOffset>
+            <spirit:bitWidth>2</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+            <spirit:enumeratedValues>
+              <spirit:enumeratedValue>
+                <spirit:name>m0</spirit:name>
+                <spirit:value>0</spirit:value>
+              </spirit:enumeratedValue>
+              <spirit:enumeratedValue spirit:usage="read">
+                <spirit:name>m1</spirit:name>
+                <spirit:description>Synthetic value.</spirit:description>
+                <spirit:value>1</spirit:value>
+              </spirit:enumeratedValue>
+            </spirit:enumeratedValues>
+            <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+            <spirit:readAction>clear</spirit:readAction>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>reg1</spirit:name>
+          <spirit:addressOffset>0x4</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:field>
+            <spirit:name>f0</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>32</spirit:bitWidth>
+          </spirit:field>
+        </spirit:register>
+      </spirit:addressBlock>
+      <spirit:addressUnitBits>8</spirit:addressUnitBits>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+</spirit:component>

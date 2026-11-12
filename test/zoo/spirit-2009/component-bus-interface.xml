@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>example.com</spirit:vendor>
+  <spirit:library>lib</spirit:library>
+  <spirit:name>comp0</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>t0</spirit:name>
+      <spirit:busType spirit:vendor="example.com" spirit:library="bus" spirit:name="bus0" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="example.com" spirit:library="bus" spirit:name="bus0_rtl" spirit:version="1.0"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="mm0"/>
+      </spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ADDR</spirit:name>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>t0_addr</spirit:name>
+            <spirit:vector>
+              <spirit:left>9</spirit:left>
+              <spirit:right>2</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>i0</spirit:name>
+      <spirit:busType spirit:vendor="example.com" spirit:library="bus" spirit:name="bus0" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="example.com" spirit:library="bus" spirit:name="bus0_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>mm0</spirit:name>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>t0_addr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>9</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+</spirit:component>

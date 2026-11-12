@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>example.com</spirit:vendor>
+  <spirit:library>lib</spirit:library>
+  <spirit:name>comp0</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:description>Synthetic component with vendor extensions.</spirit:description>
+  <spirit:vendorExtensions>
+    <ex:meta xmlns:ex="http://example.com/ext" ex:kind="synthetic">
+      <ex:item>alpha</ex:item>
+      <ex:item ex:n="2">beta</ex:item>
+    </ex:meta>
+  </spirit:vendorExtensions>
+</spirit:component>

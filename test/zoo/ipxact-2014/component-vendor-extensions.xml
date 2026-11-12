@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2014 http://www.accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd">
+  <ipxact:vendor>example.com</ipxact:vendor>
+  <ipxact:library>lib</ipxact:library>
+  <ipxact:name>comp0</ipxact:name>
+  <ipxact:version>1.0</ipxact:version>
+  <ipxact:description>Synthetic component with vendor extensions.</ipxact:description>
+  <ipxact:vendorExtensions>
+    <ex:meta xmlns:ex="http://example.com/ext" ex:kind="synthetic">
+      <ex:item>alpha</ex:item>
+      <ex:item ex:n="2">beta</ex:item>
+    </ex:meta>
+  </ipxact:vendorExtensions>
+</ipxact:component>

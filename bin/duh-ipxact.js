@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-const http = require('http');
-
 const fs = require('fs-extra');
 const {program} = require('commander');
 const json5 = require('json5');
@@ -51,19 +49,13 @@ const ipxact2duhHandler = async argv => {
   }
 };
 
-const fetch = (url) => new Promise((resolve, reject) => {
-  return http.get(url, res => {
-    let fullData = '';
-    res.on('data', data => {
-      fullData += data;
-    });
-    res.on('end', () => resolve({
-      text: async () => fullData
-    }));
-  }).on('error', (e) => {
-    reject(e);
-  });
-});
+const fetchText = async url => {
+  const resp = await fetch(url); // global fetch, follows redirects
+  if (!resp.ok) {
+    throw new Error(url + ' : HTTP ' + resp.status);
+  }
+  return resp.text();
+};
 
 // fetch IPXACT files
 const fetchIpxactSchemasHandler = async argv => {
@@ -71,8 +63,7 @@ const fetchIpxactSchemasHandler = async argv => {
     console.log('fetch IPXACT schemas');
   }
   await Promise.all(ipxactSchemas.map(async leaf => {
-    let resp = await fetch('http://' + leaf);
-    let body = await resp.text();
+    const body = await fetchText('http://' + leaf);
     await fs.outputFile(leaf, body);
   }));
 };
