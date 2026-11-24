@@ -413,10 +413,52 @@ Candidates (not yet in DuH):
 
 - `tmp/` — owner-provided private XML, git-ignored, local only.
   No file / vendor / IP names from it in plans, code, tests, commits.
-- `pub/` — owner-provided public XML (surveyed too; not leak-checked).
-- `bin/zoo-survey.js` (local tool): walk `tmp/`, detect version per file,
+- `pub/` — public XML corpus (git-ignored, surveyed by `bin/zoo-survey.js`; not leak-checked).
+- `bin/find-ipxact.js` (`npm run zoo:find`, requires authenticated `gh`):
+  discover and harvest public IP-XACT / SPIRIT XML corpora on GitHub across all
+  4 versions and all 9 document kinds (`component`, `busDefinition`,
+  `abstractionDefinition`, `design`, `designConfiguration`, `abstractor`,
+  `generatorChain`, plus `catalog` in 2014/2022 and `typeDefinitions` in 2022).
+  - **Tree mode (default, `--mode tree`)**: groups sniffed XMLs per
+    `(repo, version)`, scores by distinct document kinds and resolved internal
+    VLNV cross-references, skips fork duplicates (`>= 70%` blob SHA overlap),
+    and harvests coherent multi-kind trees into
+    `pub/<version>/<user>--<repo>/...` preserving relative/VLNV folder layout
+    (or normalized `<vendor>/<library>/<name>/<ver>/<file>` with
+    `--vlnv-layout`) plus a `_tree.json` manifest.
+  - **File mode (`--mode file`)**: picks largest single files per new
+    `(version, kind, producer, vendor)`.
+  - Prints a `version × kind` coverage matrix; caches search/trees/heads in
+    `tmp/find-ipxact-cache.json` and writes report to `tmp/find-ipxact.json`.
+  ```
+  npm run zoo:find                                                        # dry run: rank multi-kind trees
+  node bin/find-ipxact.js --version ipxact-2014,ipxact-2022 --fetch       # harvest top trees into pub/<ver>/
+  node bin/find-ipxact.js --min-kinds 3 --max-trees 5 --fetch             # stricter multi-kind trees
+  node bin/find-ipxact.js --vlnv-layout --fetch                           # normalize into VLNV subfolders
+  node bin/find-ipxact.js --mode file --kind component --per-key 2 --fetch
+  npm run zoo:survey                                                      # re-survey tmp/ + pub/
+  ```
+  Key flags: `--mode tree|file`, `--version LIST`, `--kind LIST`,
+  `--corpus DIR` (default `pub`), `--min-kinds N` (default `2`),
+  `--max-trees N` (default `10`/ver), `--max-tree-files N` (default `200`),
+  `--vlnv-layout`, `--max-repos N` (default `40`/bucket), `--no-trees`,
+  `--per-key N`, `--all`, `--no-lfs`, `--fetch`, `--out FILE`, `--cache FILE`.
+- `bin/zoo-survey.js` (local tool): walk `tmp/` and `pub/`, detect version per file,
   report element-path histogram + XSD coverage (which elements / combos occur).
   Output local only (under `tmp/`).
+- `bin/validate.js` (uses vanilla JS `lib/xsd/validate.js` by default; optional `--xmllint`):
+  validate `*.xml` under `tmp/` by default (or passed file/dir paths) against
+  each file's detected IP-XACT / SPIRIT version schema (`lib/xsd/<id>.json`
+  via `lib/versions.js` `detect()`, source locations via `onml@2.4` `{loc}`).
+  Groups identical causes per file, renders box-drawing source snippets with
+  caret underlines, and prints corpus top failure causes; exits `1` on any failure.
+  ```
+  node bin/validate.js                # validate tmp/ (grouped + snippets)
+  node bin/validate.js --summary pub  # corpus summary + top causes
+  node bin/validate.js --all <file>   # expand all occurrences
+  node bin/validate.js --json tmp     # machine-readable JSON
+  node bin/validate.js --xmllint tmp  # cross-check with external xmllint
+  ```
 - `test/zoo/<version>/<feature>.xml` — **synthetic**, committed:
   - hand-written or generated from survey patterns, small, one feature focus each;
   - neutral identifiers (`example.com`, `lib`, `comp0`, `reg0`, `f0`, ...),

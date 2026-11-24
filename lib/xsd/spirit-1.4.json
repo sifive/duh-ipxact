@@ -79,6 +79,471 @@
     "wireTypeDef": "wireTypeDef",
     "wireTypeDefs": "wireTypeDefs"
   },
+  "rootKeys": {
+    "abstractionDefinition": [
+      {
+        "kind": "key",
+        "name": "busDefPortKey",
+        "selector": "spirit:ports/spirit:port",
+        "fields": [
+          "spirit:logicalName"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "timingConstraintKeyRef",
+        "refer": "busDefPortKey",
+        "selector": ".//spirit:timingConstraint",
+        "fields": [
+          "@spirit:clockName"
+        ]
+      }
+    ],
+    "abstractor": [
+      {
+        "kind": "key",
+        "name": "abstractorInterfaceKey",
+        "selector": "spirit:abstractorInterfaces/spirit:abstractorInterface",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "abstractorComponentChoiceKey",
+        "selector": "spirit:choices/spirit:choice",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "abstractorComponentChoiceRef",
+        "refer": "abstractorComponentChoiceKey",
+        "selector": ".//*",
+        "fields": [
+          "@spirit:choiceRef"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "abstractorComponentViewKey",
+        "selector": "spirit:model/spirit:views/spirit:view",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "abstractorComponentTypeDefViewNameRef",
+        "refer": "abstractorComponentViewKey",
+        "selector": ".//spirit:viewNameRef",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "abstractorFileSetKey",
+        "selector": ".//spirit:fileSet",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "abstractorFileSetRef",
+        "refer": "abstractorFileSetKey",
+        "selector": ".//spirit:fileSetRef",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "abstractorPortKey",
+        "selector": "spirit:model/spirit:ports/spirit:port",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "abstractorportRef",
+        "refer": "abstractorPortKey",
+        "selector": "spirit:abstractorInterfaces/spirit:abstractorInterface/spirit:portMaps/spirit:portMap/spirit:physicalPort/spirit:name",
+        "fields": [
+          "."
+        ]
+      }
+    ],
+    "addressBlock": [
+      {
+        "kind": "key",
+        "name": "registerKey",
+        "selector": "spirit:register",
+        "fields": [
+          "spirit:name"
+        ]
+      }
+    ],
+    "busDefinition": [
+      {
+        "kind": "key",
+        "name": "systemGroupNameKey",
+        "selector": "spirit:systemGroupNames/spirit:systemGroupName",
+        "fields": [
+          "."
+        ]
+      }
+    ],
+    "channels": [
+      {
+        "kind": "unique",
+        "name": "channelConnections",
+        "selector": "spirit:channel/spirit:busInterfaceRef",
+        "fields": [
+          "."
+        ]
+      }
+    ],
+    "component": [
+      {
+        "kind": "key",
+        "name": "interfaceKey",
+        "selector": "spirit:busInterfaces/spirit:busInterface",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "interfaceRef",
+        "refer": "interfaceKey",
+        "selector": "spirit:busInterfaces/spirit:busInterface/spirit:slave/spirit:bridge",
+        "fields": [
+          "@spirit:masterRef"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "channelInterfaceRef",
+        "refer": "interfaceKey",
+        "selector": "spirit:channels/spirit:channel/spirit:busInterfaceRef",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "localSubspaceMapRef",
+        "refer": "interfaceKey",
+        "selector": "spirit:addressSpaces/spirit:addressSpace/spirit:localMemoryMap/spirit:subspaceMap",
+        "fields": [
+          "@spirit:masterRef"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "addressSpaceKey",
+        "selector": "spirit:addressSpaces/spirit:addressSpace",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "addressSpaceRef",
+        "refer": "addressSpaceKey",
+        "selector": ".//spirit:addressSpaceRef",
+        "fields": [
+          "@spirit:addressSpaceRef"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "memoryMapKey",
+        "selector": "spirit:memoryMaps/spirit:memoryMap",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "memoryMapRef",
+        "refer": "memoryMapKey",
+        "selector": ".//spirit:memoryMapRef",
+        "fields": [
+          "@spirit:memoryMapRef"
+        ]
+      },
+      {
+        "kind": "unique",
+        "name": "cpuNameConstraint",
+        "selector": "spirit:cpu",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "componentChoiceKey",
+        "selector": "spirit:choices/spirit:choice",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "componentChoiceRef",
+        "refer": "componentChoiceKey",
+        "selector": ".//*",
+        "fields": [
+          "@spirit:choiceRef"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "componentViewKey",
+        "selector": "spirit:model/spirit:views/spirit:view",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "componentTypeDefViewNameRef",
+        "refer": "componentViewKey",
+        "selector": ".//spirit:viewNameRef",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "fileSetKey",
+        "selector": ".//spirit:fileSet",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "fileSetRef",
+        "refer": "fileSetKey",
+        "selector": ".//spirit:fileSetRef",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "remapStateKey",
+        "selector": "spirit:remapStates/spirit:remapState",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "remapStateRef",
+        "refer": "remapStateKey",
+        "selector": "spirit:memoryMaps/spirit:memoryMap/spirit:memoryRemap",
+        "fields": [
+          "@spirit:state"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "remapStateRefMS",
+        "refer": "remapStateKey",
+        "selector": "spirit:busInterfaces/spirit:busInterface/mirroredSlave/spirit:baseAddresses/spirit:remapAddress",
+        "fields": [
+          "@spirit:state"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "portKey",
+        "selector": "spirit:model/spirit:ports/spirit:port",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "portRef",
+        "refer": "portKey",
+        "selector": "spirit:busInterfaces/spirit:busInterface/spirit:portMaps/spirit:portMap/spirit:physicalPort/spirit:name",
+        "fields": [
+          "."
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "remapStatePortRef",
+        "refer": "portKey",
+        "selector": "spirit:remapStates/spirit:remapState/spirit:remapPort",
+        "fields": [
+          "@spirit:portNameRef"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "whiteboxKey",
+        "selector": "spirit:whiteboxElements/spirit:whiteboxElement",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "whiteboxRef",
+        "refer": "whiteboxKey",
+        "selector": "spirit:model/spirit:views/spirit:view/spirit:whiteboxElementRefs/spirit:whiteBoxElementRef",
+        "fields": [
+          "@spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "addressBlockKey",
+        "selector": ".//spirit:addressBlock",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "memoryRemapKey",
+        "selector": ".//spirit:memoryRemap",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "localMemoryMapKey",
+        "selector": ".//spirit:localMemoryMap",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "bankKey",
+        "selector": ".//spirit:bank",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "subspaceMapKey",
+        "selector": ".//spirit:subspaceMap",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "componentGeneratorKey",
+        "selector": "spirit:componentGenerators/spirit:componentGenerator",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "componentGeneratorRef",
+        "refer": "componentGeneratorKey",
+        "selector": ".//spirit:generatorRef",
+        "fields": [
+          "."
+        ]
+      }
+    ],
+    "design": [
+      {
+        "kind": "key",
+        "name": "designComponentInstanceKey",
+        "selector": "spirit:componentInstances/spirit:componentInstance",
+        "fields": [
+          "spirit:instanceName"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "designComponentMonitorInstanceRef",
+        "refer": "designComponentInstanceKey",
+        "selector": ".//spirit:monitorInterface",
+        "fields": [
+          "@spirit:componentRef"
+        ]
+      },
+      {
+        "kind": "keyref",
+        "name": "designComponentActiveInstanceRef",
+        "refer": "designComponentInstanceKey",
+        "selector": ".//spirit:activeInterface",
+        "fields": [
+          "@spirit:componentRef"
+        ]
+      },
+      {
+        "kind": "unique",
+        "name": "designInterconnectionName",
+        "selector": ".//spirit:interconnection|.//spirit:monitorInterconnection",
+        "fields": [
+          "spirit:name"
+        ]
+      },
+      {
+        "kind": "unique",
+        "name": "designAdHocName",
+        "selector": ".//spirit:adHocConnection",
+        "fields": [
+          "spirit:name"
+        ]
+      }
+    ],
+    "designConfiguration": [
+      {
+        "kind": "key",
+        "name": "designConfigViewInstanceKey",
+        "selector": "spirit:viewConfiguration",
+        "fields": [
+          "spirit:instanceName"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "designConfigAbstractorInstanceKey",
+        "selector": "spirit:interconnectionConfiguration/spirit:abstractors/spirit:abstractor",
+        "fields": [
+          "spirit:instanceName"
+        ]
+      },
+      {
+        "kind": "key",
+        "name": "designConfigInterconnectionRefKey",
+        "selector": "spirit:interconnectionConfiguration",
+        "fields": [
+          "spirit:interconnectionRef"
+        ]
+      }
+    ],
+    "wireTypeDefs": [
+      {
+        "kind": "key",
+        "name": "wireTypeDefsKey",
+        "selector": "spirit:wireTypeDef/spirit:viewNameRef",
+        "fields": [
+          "."
+        ]
+      }
+    ]
+  },
   "types": {
     "abstractionDefPortConstraintsType": {
       "kind": "complex",
@@ -88,18 +553,21 @@
           {
             "el": "timingConstraint",
             "type": "timingConstraint",
+            "ref": true,
             "min": 0,
             "max": -1
           },
           {
             "el": "driveConstraint",
             "type": "driveConstraint",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "loadConstraint",
             "type": "loadConstraint",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -170,6 +638,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -238,6 +707,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -288,6 +758,7 @@
           {
             "el": "presence",
             "type": "presence",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -310,6 +781,7 @@
           {
             "el": "presence",
             "type": "presence",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -340,6 +812,7 @@
               {
                 "el": "presence",
                 "type": "presence",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
@@ -420,6 +893,7 @@
               {
                 "el": "requiresDriver",
                 "type": "requiresDriver",
+                "ref": true,
                 "min": 1,
                 "max": 1
               }
@@ -440,6 +914,7 @@
           {
             "el": "presence",
             "type": "presence",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -487,6 +962,7 @@
           {
             "el": "presence",
             "type": "presence",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -542,6 +1018,7 @@
               {
                 "el": "presence",
                 "type": "presence",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
@@ -670,12 +1147,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -894,6 +1373,7 @@
           {
             "el": "vector",
             "type": "vector",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -910,6 +1390,7 @@
           {
             "el": "abstractorGenerator",
             "type": "instanceGeneratorType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -1062,6 +1543,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -1095,18 +1577,21 @@
           {
             "el": "vector",
             "type": "vector",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "wireTypeDefs",
             "type": "wireTypeDefs",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "driver",
             "type": "driverType",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -1177,18 +1662,21 @@
           {
             "el": "abstractorGenerators",
             "type": "abstractorGenerators",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "choices",
             "type": "choices",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "fileSets",
             "type": "fileSets",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -1201,12 +1689,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -1297,18 +1787,21 @@
           {
             "el": "fileSetRef",
             "type": "xs:Name",
+            "ref": true,
             "min": 0,
             "max": -1
           },
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -1443,6 +1936,7 @@
           {
             "el": "adHocConnection",
             "type": "adHocConnection",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -1501,6 +1995,7 @@
               {
                 "el": "baseAddress",
                 "type": "baseAddress",
+                "ref": true,
                 "min": 1,
                 "max": 1
               }
@@ -1515,6 +2010,16 @@
                   {
                     "el": "addressBlock",
                     "type": "bankedBlockType",
+                    "keys": [
+                      {
+                        "kind": "key",
+                        "name": "bankedRegisterKey",
+                        "selector": "spirit:register",
+                        "fields": [
+                          "spirit:name"
+                        ]
+                      }
+                    ],
                     "min": 1,
                     "max": 1
                   },
@@ -1545,18 +2050,21 @@
                   {
                     "el": "volatile",
                     "type": "xs:boolean",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "access",
                     "type": "accessType",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "parameters",
                     "type": "parameters",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   }
@@ -1567,6 +2075,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -1613,6 +2122,7 @@
               {
                 "el": "baseAddress",
                 "type": "baseAddress",
+                "ref": true,
                 "min": 1,
                 "max": 1
               }
@@ -1651,18 +2161,21 @@
                   {
                     "el": "volatile",
                     "type": "xs:boolean",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "access",
                     "type": "accessType",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "parameters",
                     "type": "parameters",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   }
@@ -1675,6 +2188,16 @@
                   {
                     "el": "register",
                     "type": "group:registerData/register",
+                    "keys": [
+                      {
+                        "kind": "key",
+                        "name": "fieldKey",
+                        "selector": "spirit:field",
+                        "fields": [
+                          "spirit:name"
+                        ]
+                      }
+                    ],
                     "min": 0,
                     "max": -1
                   }
@@ -1685,6 +2208,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -1763,12 +2287,14 @@
           {
             "el": "addressUnitBits",
             "type": "xs:positiveInteger",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "executableImage",
             "type": "executableImage",
+            "ref": true,
             "min": 0,
             "max": -1
           },
@@ -1781,12 +2307,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -1837,6 +2365,16 @@
                   {
                     "el": "addressBlock",
                     "type": "bankedBlockType",
+                    "keys": [
+                      {
+                        "kind": "key",
+                        "name": "bankedRegisterKey",
+                        "selector": "spirit:register",
+                        "fields": [
+                          "spirit:name"
+                        ]
+                      }
+                    ],
                     "min": 1,
                     "max": 1
                   },
@@ -1867,18 +2405,21 @@
                   {
                     "el": "volatile",
                     "type": "xs:boolean",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "access",
                     "type": "accessType",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "parameters",
                     "type": "parameters",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   }
@@ -1889,6 +2430,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -1961,18 +2503,21 @@
                   {
                     "el": "volatile",
                     "type": "xs:boolean",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "access",
                     "type": "accessType",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   },
                   {
                     "el": "parameters",
                     "type": "parameters",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   }
@@ -1985,6 +2530,16 @@
                   {
                     "el": "register",
                     "type": "group:registerData/register",
+                    "keys": [
+                      {
+                        "kind": "key",
+                        "name": "fieldKey",
+                        "selector": "spirit:field",
+                        "fields": [
+                          "spirit:name"
+                        ]
+                      }
+                    ],
                     "min": 0,
                     "max": -1
                   }
@@ -1995,6 +2550,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -2045,12 +2601,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -2205,6 +2763,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -2335,6 +2894,7 @@
           {
             "el": "bitsInLau",
             "type": "xs:positiveInteger",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -2354,12 +2914,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -2634,6 +3196,7 @@
           {
             "el": "vector",
             "type": "vector",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -2650,6 +3213,7 @@
           {
             "el": "busInterface",
             "type": "busInterfaceType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -3195,12 +3759,14 @@
               {
                 "el": "phase",
                 "type": "phase",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
               {
                 "el": "parameters",
                 "type": "parameters",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
@@ -3225,6 +3791,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -3257,6 +3824,7 @@
           {
             "el": "componentGenerator",
             "type": "componentGenerator",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -3273,6 +3841,7 @@
           {
             "el": "instanceName",
             "type": "xs:Name",
+            "ref": true,
             "min": 1,
             "max": 1
           },
@@ -3297,12 +3866,14 @@
           {
             "el": "configurableElementValues",
             "type": "configurableElementValues",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3319,6 +3890,7 @@
           {
             "el": "componentInstance",
             "type": "componentInstance",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -3375,54 +3947,63 @@
           {
             "el": "busInterfaces",
             "type": "busInterfaces",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "channels",
             "type": "channels",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "remapStates",
             "type": "remapStates",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "addressSpaces",
             "type": "addressSpaces",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "memoryMaps",
             "type": "memoryMaps",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "model",
             "type": "modelType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "componentGenerators",
             "type": "componentGenerators",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "choices",
             "type": "choices",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "fileSets",
             "type": "fileSets",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -3453,12 +4034,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3515,18 +4098,21 @@
           {
             "el": "addressSpaceRef",
             "type": "addrSpaceRefType",
+            "ref": true,
             "min": 1,
             "max": -1
           },
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3576,6 +4162,7 @@
           {
             "el": "configurableElementValue",
             "type": "configurableElementValue",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -3628,18 +4215,21 @@
           {
             "el": "driveConstraint",
             "type": "driveConstraint",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "loadConstraint",
             "type": "loadConstraint",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "timingConstraint",
             "type": "timingConstraint",
+            "ref": true,
             "min": 0,
             "max": -1
           }
@@ -3688,6 +4278,7 @@
           {
             "el": "constraintSet",
             "type": "constraintSet",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -3797,18 +4388,21 @@
           {
             "el": "componentInstances",
             "type": "componentInstances",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "interconnections",
             "type": "interconnections",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "adHocConnections",
             "type": "adHocConnections",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -3827,6 +4421,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3871,6 +4466,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3947,6 +4543,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -3991,6 +4588,7 @@
           {
             "el": "configurableElementValues",
             "type": "configurableElementValues",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -4069,6 +4667,7 @@
           {
             "el": "configurableElementValues",
             "type": "configurableElementValues",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -4091,6 +4690,7 @@
           {
             "el": "instanceName",
             "type": "xs:Name",
+            "ref": true,
             "min": 1,
             "max": 1
           },
@@ -4113,6 +4713,7 @@
           {
             "el": "cellSpecification",
             "type": "cellSpecification",
+            "ref": true,
             "min": 1,
             "max": 1
           }
@@ -4129,18 +4730,21 @@
           {
             "el": "defaultValue",
             "type": "defaultValue",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "clockDriver",
             "type": "clockDriver",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "singleShotDriver",
             "type": "singleShotDriver",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -4188,6 +4792,7 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -4206,6 +4811,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -4222,6 +4828,7 @@
           {
             "el": "fileSetRef",
             "type": "xs:Name",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -4308,6 +4915,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -4567,12 +5175,14 @@
           {
             "el": "generatorRef",
             "type": "xs:string",
+            "ref": true,
             "min": 0,
             "max": -1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -4855,6 +5465,7 @@
           {
             "el": "access",
             "type": "accessType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -4867,12 +5478,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -5040,6 +5653,7 @@
           {
             "el": "dependency",
             "type": "spiritURI",
+            "ref": true,
             "min": 0,
             "max": -1
           },
@@ -5064,6 +5678,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -5668,6 +6283,7 @@
           {
             "el": "file",
             "type": "file",
+            "ref": true,
             "min": 0,
             "max": -1
           },
@@ -5680,6 +6296,7 @@
           {
             "el": "dependency",
             "type": "spiritURI",
+            "ref": true,
             "min": 0,
             "max": -1
           },
@@ -5692,6 +6309,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -5797,6 +6415,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -5917,6 +6536,7 @@
           {
             "el": "fileSet",
             "type": "fileSetType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -5964,12 +6584,14 @@
           {
             "el": "phase",
             "type": "phase",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -5994,6 +6616,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -6061,6 +6684,7 @@
               {
                 "el": "generator",
                 "type": "generator",
+                "ref": true,
                 "min": 1,
                 "max": 1
               }
@@ -6089,12 +6713,14 @@
           {
             "el": "choices",
             "type": "choices",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -6118,6 +6744,7 @@
           {
             "el": "groupSelector",
             "type": "groupSelector",
+            "ref": true,
             "min": 1,
             "max": 1
           },
@@ -6140,6 +6767,7 @@
           {
             "el": "groupSelector",
             "type": "groupSelector",
+            "ref": true,
             "min": 1,
             "max": 1
           }
@@ -6187,12 +6815,14 @@
           {
             "el": "phase",
             "type": "phase",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -6217,6 +6847,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -6673,6 +7304,7 @@
           {
             "el": "group",
             "type": "xs:Name",
+            "ref": true,
             "min": 1,
             "max": 1
           }
@@ -6695,6 +7327,7 @@
           {
             "el": "group",
             "type": "xs:Name",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -6723,6 +7356,7 @@
           {
             "el": "memoryMapRef",
             "type": "memoryMapRefType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -6772,6 +7406,7 @@
           {
             "el": "fileSetRef",
             "type": "xs:Name",
+            "ref": true,
             "min": 0,
             "max": -1
           }
@@ -6788,6 +7423,7 @@
           {
             "el": "group",
             "type": "xs:Name",
+            "ref": true,
             "min": 1,
             "max": 1
           }
@@ -6846,12 +7482,14 @@
           {
             "el": "volatile",
             "type": "xs:boolean",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "access",
             "type": "accessType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -6870,12 +7508,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -7174,12 +7814,14 @@
               {
                 "el": "phase",
                 "type": "phase",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
               {
                 "el": "parameters",
                 "type": "parameters",
+                "ref": true,
                 "min": 0,
                 "max": 1
               },
@@ -7204,6 +7846,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -7284,12 +7927,14 @@
           {
             "el": "interconnection",
             "type": "interconnection",
+            "ref": true,
             "min": 0,
             "max": -1
           },
           {
             "el": "monitorInterconnection",
             "type": "monitorInterconnection",
+            "ref": true,
             "min": 0,
             "max": -1
           }
@@ -7346,6 +7991,7 @@
           {
             "el": "cellSpecification",
             "type": "cellSpecification",
+            "ref": true,
             "min": 1,
             "max": 1
           },
@@ -7397,12 +8043,14 @@
                   {
                     "el": "addressBlock",
                     "type": "addressBlockType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
                   {
                     "el": "bank",
                     "type": "addressBankType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
@@ -7471,12 +8119,14 @@
                   {
                     "el": "addressBlock",
                     "type": "addressBlockType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
                   {
                     "el": "bank",
                     "type": "addressBankType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
@@ -7559,12 +8209,14 @@
                       {
                         "el": "addressBlock",
                         "type": "addressBlockType",
+                        "ref": true,
                         "min": 1,
                         "max": 1
                       },
                       {
                         "el": "bank",
                         "type": "addressBankType",
+                        "ref": true,
                         "min": 1,
                         "max": 1
                       },
@@ -7597,6 +8249,7 @@
               {
                 "el": "addressUnitBits",
                 "type": "xs:positiveInteger",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -7651,12 +8304,14 @@
                   {
                     "el": "addressBlock",
                     "type": "addressBlockType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
                   {
                     "el": "bank",
                     "type": "addressBankType",
+                    "ref": true,
                     "min": 1,
                     "max": 1
                   },
@@ -7731,6 +8386,7 @@
           {
             "el": "port",
             "type": "portType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -7840,6 +8496,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -7953,6 +8610,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -8022,6 +8680,7 @@
           {
             "el": "otherClockDriver",
             "type": "otherClockDriver",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -8038,6 +8697,7 @@
           {
             "el": "parameter",
             "type": "nameValuePairType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -8132,6 +8792,7 @@
           {
             "el": "transTypeDef",
             "type": "transTypeDef",
+            "ref": true,
             "min": 0,
             "max": 1
           },
@@ -8166,12 +8827,14 @@
           {
             "el": "portAccessType",
             "type": "portAccessType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "portAccessHandle",
             "type": "xs:string",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -8212,18 +8875,21 @@
           {
             "el": "initiative",
             "type": "initiative",
+            "ref": true,
             "min": 1,
             "max": 1
           },
           {
             "el": "serviceTypeDefs",
             "type": "serviceTypeDefs",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -8290,6 +8956,7 @@
               {
                 "el": "vendorExtensions",
                 "type": "vendorExtensions",
+                "ref": true,
                 "min": 0,
                 "max": 1
               }
@@ -8323,24 +8990,28 @@
           {
             "el": "vector",
             "type": "vector",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "wireTypeDefs",
             "type": "wireTypeDefs",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "driver",
             "type": "driverType",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "constraintSets",
             "type": "constraintSets",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -8492,6 +9163,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -8556,6 +9228,7 @@
           {
             "el": "parameter",
             "type": "nameValuePairType",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -8588,6 +9261,7 @@
           {
             "el": "serviceTypeDef",
             "type": "serviceTypeDef",
+            "ref": true,
             "min": 1,
             "max": -1
           }
@@ -8841,6 +9515,7 @@
               {
                 "el": "baseAddress",
                 "type": "baseAddress",
+                "ref": true,
                 "min": 1,
                 "max": 1
               }
@@ -8851,12 +9526,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -9144,12 +9821,14 @@
                   {
                     "el": "fileSetRef",
                     "type": "xs:Name",
+                    "ref": true,
                     "min": 0,
                     "max": -1
                   },
                   {
                     "el": "constraintSetRef",
                     "type": "xs:NMTOKEN",
+                    "ref": true,
                     "min": 0,
                     "max": -1
                   },
@@ -9162,6 +9841,7 @@
                   {
                     "el": "parameters",
                     "type": "parameters",
+                    "ref": true,
                     "min": 0,
                     "max": 1
                   }
@@ -9176,6 +9856,7 @@
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -9325,12 +10006,14 @@
           {
             "el": "parameters",
             "type": "parameters",
+            "ref": true,
             "min": 0,
             "max": 1
           },
           {
             "el": "vendorExtensions",
             "type": "vendorExtensions",
+            "ref": true,
             "min": 0,
             "max": 1
           }
@@ -9396,6 +10079,7 @@
           {
             "el": "wireTypeDef",
             "type": "wireTypeDef",
+            "ref": true,
             "min": 1,
             "max": -1
           }

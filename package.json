@@ -18,6 +18,7 @@
     "prepublishOnly": "npm run build",
     "fetch": "node bin/duh-ipxact.js fetch",
     "xsd": "node bin/xsd-tables.js",
+    "zoo:find": "node bin/find-ipxact.js",
     "zoo:survey": "node bin/zoo-survey.js",
     "zoo:check": "node bin/zoo-check.js",
     "zoo:update": "UPDATE_ZOO=1 c8 mocha test"
@@ -43,7 +44,7 @@
     "duh-core": "^1.0.0",
     "duh-schema": "^1.0.0",
     "json5": "^2.2.1",
-    "onml": "^2.3.0"
+    "onml": "^2.4.0"
   },
   "devDependencies": {
     "@drom/eslint-config": "^1.0.0",
