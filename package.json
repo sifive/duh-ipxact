@@ -20,6 +20,7 @@
     "xsd": "node bin/xsd-tables.js",
     "zoo:find": "node bin/find-ipxact.js",
     "zoo:survey": "node bin/zoo-survey.js",
+    "zoo:validate": "node bin/validate.js",
     "zoo:check": "node bin/zoo-check.js",
     "zoo:update": "UPDATE_ZOO=1 c8 mocha test"
   },

@@ -413,7 +413,9 @@ Candidates (not yet in DuH):
 
 - `tmp/` — owner-provided private XML, git-ignored, local only.
   No file / vendor / IP names from it in plans, code, tests, commits.
-- `pub/` — public XML corpus (git-ignored, surveyed by `bin/zoo-survey.js`; not leak-checked).
+- `pub/` — public IP-XACT test corpus for ongoing development (git-ignored,
+  harvested into `pub/<version>/<user>--<repo>/...` with `_tree.json` manifests;
+  validated by `bin/validate.js` and surveyed by `bin/zoo-survey.js`; not leak-checked).
 - `bin/find-ipxact.js` (`npm run zoo:find`, requires authenticated `gh`):
   discover and harvest public IP-XACT / SPIRIT XML corpora on GitHub across all
   4 versions and all 9 document kinds (`component`, `busDefinition`,
@@ -443,6 +445,11 @@ Candidates (not yet in DuH):
   `--max-trees N` (default `10`/ver), `--max-tree-files N` (default `200`),
   `--vlnv-layout`, `--max-repos N` (default `40`/bucket), `--no-trees`,
   `--per-key N`, `--all`, `--no-lfs`, `--fetch`, `--out FILE`, `--cache FILE`.
+- `bin/validate.js` (`npm run zoo:validate`, requires `xmllint` + `npm run fetch`):
+  validate XML in `tmp/` and `pub/` (or explicit files/dirs) in parallel against
+  local XSDs under `accellera.org/XMLSchema/`, with per-version, per-kind, and
+  per-tree pass/fail summaries. Flags: `-q`/`--fail-only`, `-s`/`--summary`,
+  `-j`/`--jobs N` (default `8`).
 - `bin/zoo-survey.js` (local tool): walk `tmp/` and `pub/`, detect version per file,
   report element-path histogram + XSD coverage (which elements / combos occur).
   Output local only (under `tmp/`).
